@@ -1,0 +1,15 @@
+#successMessage.showMessage,
+#errorMessage.showMessage {
+  display: block;
+  opacity: 1;
+}
+
+#successMessage.hideMessage,
+#errorMessage.hideMessage {
+  display: none;
+  opacity: 0;
+}
+
+#successMessage {
+  transition: 0.5s all;
+}

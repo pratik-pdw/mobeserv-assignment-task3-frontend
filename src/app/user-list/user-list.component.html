@@ -1,0 +1,91 @@
+<div style="width: 80%; margin: 0 auto" class="form mt-5 p-3">
+  <div class="form-group">
+    <label class="fw-bold" for="search">Search</label>
+    <input
+      [formControl]="searchBar"
+      placeholder="Search by Name / Company Name / Designation"
+      name="search"
+      class="form-control"
+      type="text"
+    />
+  </div>
+
+  <div
+    style="width: 100%; margin: 0 auto"
+    *ngIf="userList$ | async as users; else loading"
+    class="row mt-5"
+  >
+    <p *ngIf="users.length === 0" class="alert alert-warning">
+      No Users Present
+    </p>
+    <div *ngFor="let user of users" class="col-md-3 col-sm-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ user.company }}</h6>
+          <p class="card-text">{{ user.designation }}</p>
+          <a
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            class="card-link"
+            (click)="onClickViewMore(user)"
+            >View More</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="d-flex justify-content-center mt-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ selectedUser?.firstname }} {{ selectedUser?.lastname }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="card-text">
+            <strong>Company:</strong> {{ selectedUser?.company }}
+          </p>
+          <p class="card-text">
+            <strong>Designation:</strong> {{ selectedUser?.designation }}
+          </p>
+          <p class="card-text">
+            <strong>Email:</strong> {{ selectedUser?.email }}
+          </p>
+          <p class="card-text">
+            <strong>Contact:</strong> {{ selectedUser?.contact }}
+          </p>
+          <p class="card-text">
+            <strong>Address:</strong> {{ selectedUser?.address }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

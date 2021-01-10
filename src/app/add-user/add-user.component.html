@@ -1,0 +1,518 @@
+<div class="row mt-3">
+  <div class="col-md-8 offset-md-2 d-flex justify-content-center">
+    <button (click)="toggleForm()" class="btn btn-md btn-primary">
+      {{
+        showReactiveForm ? "Show Template Driven Form" : "Show Reactive Form"
+      }}
+    </button>
+  </div>
+</div>
+<div *ngIf="!showReactiveForm" class="row mt-3 pl-5 pr-5 pb-5">
+  <div class="col-md-6 offset-md-3">
+    <h3>Add User (Template Driven Form)</h3>
+    <p id="successMessage" class="hideMessage alert alert-success">
+      {{ message }}
+    </p>
+    <p id="errorMessage" class="hideMessage alert alert-danger">
+      {{ message }}
+    </p>
+    <form #templateDrivenForm="ngForm">
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input
+          required
+          maxlength="30"
+          minlength="2"
+          #firstname="ngModel"
+          [ngModel]="userForm.firstname"
+          name="firstname"
+          class="form-control"
+          type="text"
+        />
+
+        <div
+          *ngIf="(firstname.touched || firstname.dirty) && firstname.invalid"
+        >
+          <p class="small mt-2 text-danger" *ngIf="firstname.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="firstname.errors.minlength">
+            Minimum
+            {{ firstname.errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="firstname.errors.maxlength">
+            Maximum
+            {{ firstname.errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input
+          #lastname="ngModel"
+          [(ngModel)]="userForm.lastname"
+          name="lastname"
+          class="form-control"
+          type="text"
+          required
+          maxlength="30"
+          minlength="2"
+        />
+        <div *ngIf="(lastname.touched || lastname.dirty) && lastname.invalid">
+          <p class="small mt-2 text-danger" *ngIf="lastname.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="lastname.errors.minlength">
+            Minimum
+            {{ lastname.errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="lastname.errors.maxlength">
+            Maximum
+            {{ lastname.errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          name="email"
+          class="form-control"
+          type="text"
+          [(ngModel)]="userForm.email"
+          #email="ngModel"
+          required
+          type="email"
+          pattern=".+\@.+\..+"
+        />
+        <div *ngIf="(email.touched || email.dirty) && email.invalid">
+          <p class="small mt-2 text-danger" *ngIf="email.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="email.errors.pattern">
+            Not a valid email
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact</label>
+        <input
+          name="contact"
+          class="form-control"
+          type="text"
+          #contact="ngModel"
+          required
+          minlength="10"
+          maxlength="10"
+          [(ngModel)]="userForm.contact"
+        />
+        <div *ngIf="(contact.touched || contact.dirty) && contact.invalid">
+          <p class="small mt-2 text-danger" *ngIf="contact.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="contact.errors.minlength">
+            Phone number must be
+            {{ contact.errors.minlength.requiredLength }}
+            digits.
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="contact.errors.maxlength">
+            Maximum
+            {{ contact.errors.maxlength.requiredLength }}
+            digits allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input
+          [(ngModel)]="userForm.address"
+          #address="ngModel"
+          name="address"
+          class="form-control"
+          type="text"
+          required
+          minlength="6"
+          maxlength="100"
+        />
+        <div *ngIf="(address.touched || address.dirty) && address.invalid">
+          <p class="small mt-2 text-danger" *ngIf="address.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="address.errors.minlength">
+            Minimum
+            {{ address.errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="address.errors.maxlength">
+            Maximum
+            {{ address.errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input
+          name="company"
+          class="form-control"
+          type="text"
+          #company="ngModel"
+          [(ngModel)]="userForm.company"
+          required
+          minlength="6"
+          maxlength="50"
+        />
+        <div *ngIf="(company.touched || company.dirty) && company.invalid">
+          <p class="small mt-2 text-danger" *ngIf="company.errors.required">
+            Field is required
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="company.errors.minlength">
+            Minimum
+            {{ company.errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p class="small mt-2 text-danger" *ngIf="company.errors.maxlength">
+            Maximum
+            {{ company.errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <input
+          name="designation"
+          class="form-control"
+          type="text"
+          [(ngModel)]="userForm.designation"
+          #designation="ngModel"
+          required
+          minlength="6"
+          maxlength="50"
+        />
+        <div
+          *ngIf="
+            (designation.touched || designation.dirty) && designation.invalid
+          "
+        >
+          <p class="small mt-2 text-danger" *ngIf="designation.errors.required">
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="designation.errors.minlength"
+          >
+            Minimum
+            {{ designation.errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="designation.errors.maxlength"
+          >
+            Maximum
+            {{ designation.errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <button
+        [disabled]="templateDrivenForm.invalid"
+        (click)="onAddUserFormSubmit(templateDrivenForm.value)"
+        class="btn btn-lg btn-success"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Reactive Form -->
+
+<div *ngIf="showReactiveForm" class="row mt-3 pl-5 pr-5 pb-5">
+  <div class="col-md-6 offset-md-3">
+    <h3>Add User (Reactive Form)</h3>
+    <p id="successMessage" class="hideMessage alert alert-success">
+      {{ message }}
+    </p>
+    <p id="errorMessage" class="hideMessage alert alert-danger">
+      {{ message }}
+    </p>
+    <form [formGroup]="addUserForm">
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input
+          name="firstname"
+          class="form-control"
+          type="text"
+          formControlName="firstname"
+        />
+
+        <div
+          *ngIf="
+            (addUserForm.get('firstname').touched ||
+              addUserForm.get('firstname').dirty) &&
+            addUserForm.get('firstname').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('firstname').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('firstname').errors.minlength"
+          >
+            Minimum
+            {{ addUserForm.get("firstname").errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('firstname').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("firstname").errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input
+          name="lastname"
+          class="form-control"
+          type="text"
+          formControlName="lastname"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('lastname').touched ||
+              addUserForm.get('lastname').dirty) &&
+            addUserForm.get('lastname').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('lastname').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('lastname').errors.minlength"
+          >
+            Minimum
+            {{ addUserForm.get("lastname").errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('lastname').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("lastname").errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          formControlName="email"
+          name="email"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('email').touched ||
+              addUserForm.get('email').dirty) &&
+            addUserForm.get('email').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('email').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('email').errors.email"
+          >
+            Not a valid email
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact</label>
+        <input
+          formControlName="contact"
+          name="contact"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('contact').touched ||
+              addUserForm.get('contact').dirty) &&
+            addUserForm.get('contact').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('contact').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('contact').errors.minlength"
+          >
+            Phone number must be
+            {{ addUserForm.get("contact").errors.minlength.requiredLength }}
+            digits.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('contact').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("contact").errors.maxlength.requiredLength }}
+            digits allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input
+          formControlName="address"
+          name="address"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('address').touched ||
+              addUserForm.get('address').dirty) &&
+            addUserForm.get('address').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('address').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('address').errors.minlength"
+          >
+            Minimum
+            {{ addUserForm.get("address").errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('address').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("address").errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input
+          formControlName="company"
+          name="company"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('company').touched ||
+              addUserForm.get('company').dirty) &&
+            addUserForm.get('company').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('company').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('company').errors.minlength"
+          >
+            Minimum
+            {{ addUserForm.get("company").errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('company').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("company").errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <input
+          formControlName="designation"
+          name="designation"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="
+            (addUserForm.get('designation').touched ||
+              addUserForm.get('designation').dirty) &&
+            addUserForm.get('designation').invalid
+          "
+        >
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('designation').errors.required"
+          >
+            Field is required
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('designation').errors.minlength"
+          >
+            Minimum
+            {{ addUserForm.get("designation").errors.minlength.requiredLength }}
+            characters required.
+          </p>
+          <p
+            class="small mt-2 text-danger"
+            *ngIf="addUserForm.get('designation').errors.maxlength"
+          >
+            Maximum
+            {{ addUserForm.get("designation").errors.maxlength.requiredLength }}
+            characters allowed.
+          </p>
+        </div>
+      </div>
+      <button
+        [disabled]="addUserForm.invalid"
+        (click)="onAddUserFormSubmit(addUserForm.value)"
+        class="btn btn-lg btn-success"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
