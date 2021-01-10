@@ -1,4 +1,4 @@
-# Frontend
+# Mobeserv Task 3 (Frontend Angular App)
 
 This is frontend application
 
